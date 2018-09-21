@@ -25,6 +25,7 @@ webpackConfig.plugins = [
   new DefinePlugin({
     'process.env': {
       API_URL: JSON.stringify(process.env.API_URL),
+      GOOGLE_API_KEY: JSON.stringify(process.env.GOOGLE_API_KEY)
     },
     PRODUCTION: production,
   }),
@@ -36,13 +37,15 @@ webpackConfig.module.rules = [
   {
     test: /\.(png|gif|svg|jpg)$/,
     use: [ 'file-loader' ],
+    exclude: '/node_modules/**',
   },
   {
+    exclude: '/node_modules/**',
     test: /\.js$/,
     use: {
       loader: 'babel-loader',
       options: {
-        presets: ['env','stage-0','react'],
+        presets: [  'env','stage-0','react'],
         plugins: ['transform-react-jsx-source'],
         cacheDirectory: true,
       },
